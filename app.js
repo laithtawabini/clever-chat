@@ -28,7 +28,9 @@ mongoose.set("strictQuery", false)
 
 const app = express()
 
-app.use(helmet())
+app.use(helmet({
+    contentSecurityPolicy: false,
+}))
 app.use(morgan("tiny"))
 app.use(cors())
 app.use(express.json())
