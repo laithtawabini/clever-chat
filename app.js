@@ -57,6 +57,7 @@ app.use(
   channelsRouter
 )
 
+//added comment
 app.use(
   "/api/chats",
   ClerkExpressRequireAuth({
