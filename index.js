@@ -4,8 +4,8 @@ const { Server } = require("socket.io")
 const { instrument } = require("@socket.io/admin-ui")
 const app = require("./app")
 const socketAuth = require("./middleware/socketAuth")
-
-const PORT = process.env.PORT || 3002
+const logger = require('./utils/logger')
+const PORT = process.env.PORT || 3004
 
 const httpServer = createServer(app)
 
@@ -20,7 +20,7 @@ const io = new Server(httpServer, {
 io.use(socketAuth)
 io.on("connection", socket => {
   socket.on("join-channel", ({ channel }) => {
-    console.log(`${socket.id} joined channelId: `, channel)
+    logger.message(`${socket.id} joined channelId: `, channel)
     socket.rooms.add(channel)
     socket.join(channel)
   })
@@ -30,7 +30,7 @@ io.on("connection", socket => {
   })
 
   socket.on("disconnect", () => {
-    console.log(`socket io connection disconnected.`)
+    logger.message(`socket io connection disconnected.`)
   })
 })
 
@@ -39,5 +39,5 @@ instrument(io, {
 })
 
 httpServer.listen(PORT, (req, res) => {
-  console.log("Listening on port ", PORT)
+  logger.message("Listening on port ", PORT)
 })

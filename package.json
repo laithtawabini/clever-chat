@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "build:ui": "rm -rf build && cd ../clever-chat && npm run build && mv build ../clever-chat-server"
   },
   "author": "Laith Tawabini",
   "license": "ISC",

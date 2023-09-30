@@ -18,10 +18,10 @@ const mongoUrl = process.env.CHAT_APP_MONGODB_CONNECTION
 mongoose
   .connect(mongoUrl)
   .then(res => {
-    console.log("Connected to mongodb.")
+    logger.message("Connected to mongodb.")
   })
   .catch(e => {
-    console.log(e)
+    logger.message(e)
   })
 
 mongoose.set("strictQuery", false)
@@ -31,7 +31,10 @@ const app = express()
 app.use(helmet({
     contentSecurityPolicy: false,
 }))
-app.use(morgan("tiny"))
+
+if(process.env.NODE_ENV === 'development')
+  app.use(morgan("tiny"))
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
