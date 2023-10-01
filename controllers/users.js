@@ -57,6 +57,7 @@ usersRouter.get("/non-friends", async (req, res) => {
       },
     })
 
+    console.log(nonFriendsOfUser);
     return res.status(200).json({
       nonFriends: nonFriendsOfUser,
     })

@@ -40,9 +40,7 @@ app.use(express.json())
 //app.use(express.static('build'))
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+
 
 //uncomment request authorization middleware later.
 app.use(
@@ -77,5 +75,10 @@ app.use(
 )
 
 app.use("/clerk-webhook", clerkRouter)
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.use(errorHandler)
 module.exports = app
