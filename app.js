@@ -11,7 +11,7 @@ const logger = require("./utils/logger")
 const channelsRouter = require("./controllers/channels")
 const chatsRouter = require("./controllers/chats")
 const errorHandler = require("./middleware/errorHandler")
-
+const path = require('path');
 
 const mongoUrl = process.env.CHAT_APP_MONGODB_CONNECTION
 
@@ -37,7 +37,12 @@ if(process.env.NODE_ENV === 'development')
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('build'))
+//app.use(express.static('build'))
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 //uncomment request authorization middleware later.
 app.use(
